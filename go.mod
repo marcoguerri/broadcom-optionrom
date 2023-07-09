@@ -1,4 +1,4 @@
-module github.com/marcoguerri/broadcom-pxe
+module broadcom-pxe
 
 go 1.19
 
