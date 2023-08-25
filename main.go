@@ -202,12 +202,12 @@ func main() {
 	checkCmd := flag.NewFlagSet("check", flag.ExitOnError)
 	checkCmd.StringVar(&inNvramBinPath, "inNvramBinPath", "", "Path of the NVRAM binary dump")
 
-	writeOptionRomCmd := flag.NewFlagSet("writeOptionRom", flag.ExitOnError)
-	writeOptionRomCmd.StringVar(&inNvramBinPath, "inNvramBinPath", "", "Path of the input NVRAM binary dump")
-	writeOptionRomCmd.StringVar(&outNvramBinPath, "outNvramBinPath", "", "Path of the output NVRAM binary dump")
-	writeOptionRomCmd.StringVar(&uefiOptionRomPath, "uefiOptionRomPath", "", "Path of the OptionROM binary to write to NVRAM")
+	writeCmd := flag.NewFlagSet("write", flag.ExitOnError)
+	writeCmd.StringVar(&inNvramBinPath, "inNvramBinPath", "", "Path of the input NVRAM binary dump")
+	writeCmd.StringVar(&outNvramBinPath, "outNvramBinPath", "", "Path of the output NVRAM binary dump")
+	writeCmd.StringVar(&uefiOptionRomPath, "uefiOptionRomPath", "", "Path of the OptionROM binary to write to NVRAM")
 
-	flagSets := []*flag.FlagSet{checkCmd, writeOptionRomCmd}
+	flagSets := []*flag.FlagSet{checkCmd, writeCmd}
 
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(), "Usage of %s:\n", os.Args[0])
@@ -237,8 +237,8 @@ func main() {
 	switch command {
 	case "check":
 		flagSet = checkCmd
-	case "writeOptionRom":
-		flagSet = writeOptionRomCmd
+	case "write":
+		flagSet = writeCmd
 	}
 
 	if flagSet == nil {
@@ -280,7 +280,7 @@ func main() {
 		}
 		fmt.Println("OK")
 
-	case "writeOptionRom":
+	case "write":
 
 		optRom, err := os.ReadFile(uefiOptionRomPath)
 		if err != nil {
@@ -324,7 +324,5 @@ func main() {
 		fmt.Println("OK")
 
 	}
-	//set := []Set{
-	//	directoryChecksum{}
-	//
+
 }
