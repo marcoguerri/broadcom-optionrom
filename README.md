@@ -128,8 +128,3 @@ from the same offset. It really doesn't care if in the process, anything else mi
 implementing a proper [space look-up algorithm as described in the post](https://marcoguerri.github.io/reversing/msdos/2023/02/04/broadcom-pxe-write.html), would not be difficult. I have gotten around to implementing this yet.
 * It doesn't rewrite VendorID nor DeviceID in the OptionROM header based on the device we are working on. These two fields must be populated
 correctly at OptionROM build time.
-
-
-# Corrupted NVRAM
-
-
