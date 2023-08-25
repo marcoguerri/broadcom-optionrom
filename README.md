@@ -48,7 +48,7 @@ The system I used for testing consists of a [PCEngines APU2D4 board](https://www
 implement routers, firewalls, etc, but it’s a great setup to run firmware experiments, thanks to its support for Open System Firmware 
 (coreboot), potentially with UEFI payload, and easy access to SPI flash with external programmers.
 
-![APU2D4](https://github.com/marcoguerri/broadcom-optionrom/img/apu2d.jpg)
+![APU2D4](https://github.com/marcoguerri/broadcom-optionrom/blob/master/img/apu2d.jpg)
 
 For OptionROM experiments, I build coreboot with UEFI pyload support (edk2-tianocore) through `UefiPayloadPkg/UefiPayloadPkg.dsc`. 
 Support for enumerating PCIe bus and dispatching execution to UEFI OptionROMs was patched on top of upstream. Back then, [Patrick Rudolph's
@@ -57,7 +57,10 @@ would normally be coreboot responsibility, but nothing prevents UEFI from scanni
 them. 
 
 # Limitations
-The tool has the following limitations, some of which are [further analyzed in the corresponding post](https://marcoguerri.github.io/reversing/msdos/2023/02/04/broadcom-pxe-write.html)
+The tool has the following limitations, some of which are [further analyzed in the corresponding post](https://marcoguerri.github.io/reversing/msdos/2023/02/04/broadcom-pxe-write.html):
+* It doesn't implement any type of NVRAM space look-up. It just searches for PXE entry in the directory and stores the new OptionROM starting
+from the same offset. It really doesn't care if in the process, anything else might be overwritten. This is obvioulsy super naive, and 
+implementing a proper [space look-up algorithm as described in the post](https://marcoguerri.github.io/reversing/msdos/2023/02/04/broadcom-pxe-write.html), would not be difficult. I have gotten around to implementing this yet.
 * It doesn't rewrite VendorID nor DeviceID in the OptionROM header based on the device we are working on. These two fields must be populated
 correctly at OptionROM build time.
 
