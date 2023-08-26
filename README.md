@@ -7,8 +7,9 @@ so far it has been tested only on a BCM5751-RJ45 PCIe x1 1G Single-port Desktop 
 `B57UDIAG.EXE` is an old tool which is not easy to get hold of. I am not publishing any of the binaries I used as first and foremost I don't 
 possess the rights to do so and furthermore all the utilities I used were completely untrusted, sourced from really random places of the 
 internet. For reference, I could find two versions online (below the sha256 of the binary):
-`0eca4bd9152a7578b7fa867b0459da88a1d0726f74fe3d08f021ce5826ef09ef`: 7.34, 6/17/04
-`3be18d9bad27f20209a729e42fee8d28e03aacf2bbe571deea81b83d98c36686`: 15.6.1, 10/16/12
+
+* `0eca4bd9152a7578b7fa867b0459da88a1d0726f74fe3d08f021ce5826ef09ef`: 7.34, 6/17/04
+* `3be18d9bad27f20209a729e42fee8d28e03aacf2bbe571deea81b83d98c36686`: 15.6.1, 10/16/12
 
 The reverse engineering exercise was based on `0eca4b`.
 
