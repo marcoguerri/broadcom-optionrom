@@ -1,13 +1,13 @@
 `broadcom-optionrom` is a tool built based on the [reverse engineering](https://marcoguerri.github.io/reversing/msdos/2023/02/04/broadcom-pxe-write.html) 
 of Boardcom MS-DOS utility `B57UDIAG.EXE`, specifically the control paths which manipulate OptionROM in NVRAM. It can be used to write
-custom UEFI OptionROM to NVRAM of Broadcom BCM5751 NICs. It will likely work also for families of similar devices (e.g. BCM5718), but
+custom UEFI OptionROM to NVRAM of Broadcom BCM5751 NICs. It will likely work also for other devices belonging the BCM575x family, but
 so far it has been tested only on a BCM5751-RJ45 PCIe x1 1G Single-port Desktop Adapter.
 
 # Broadcom tooling
 `B57UDIAG.EXE` is an old tool which can still be sourced from Broadcom website. Most of my work was based on top of version `15.6.1, 10/16/12`, available as [doc 12358473](https://docs.broadcom.com/docs/12358473). 
 The sha256 of the EXE file itself is `3be18d9bad27f20209a729e42fee8d28e03aacf2bbe571deea81b83d98c36686`.
 Note that it did happen once that I had to restore NIC boot code through the tool running in engineering mode (`-b57eng` flag). The only version I could find that was capable of this type of recovery 
-was `7.34, 6/17/04` (sha256sum 0eca4bd9152a7578b7fa867b0459da88a1d0726f74fe3d08f021ce5826ef09ef). I could not find a copy of this binary distributed directly by Broadom.
+was `7.34, 6/17/04` (sha256sum `0eca4bd9152a7578b7fa867b0459da88a1d0726f74fe3d08f021ce5826ef09ef`). I could not find a copy of this binary distributed directly by Broadom. I backed up the IDA databse file with all my custom annotations [in the repository](https://github.com/marcoguerri/broadcom-optionrom/blob/master/idb/B57UDIAG.idb). I find reverse engineering annotations something very personal, so this database won't make much sense to anybody else beyond myself.
 
 # Usage
 `broadcom-optionrom` supports two commands:
