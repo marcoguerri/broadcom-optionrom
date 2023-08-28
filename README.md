@@ -4,17 +4,13 @@ custom UEFI OptionROM to NVRAM of Broadcom BCM5751 NICs. It will likely work als
 so far it has been tested only on a BCM5751-RJ45 PCIe x1 1G Single-port Desktop Adapter.
 
 # Broadcom tooling
-`B57UDIAG.EXE` is an old tool which is not easy to get hold of. I am not publishing any of the binaries I used as first and foremost I don't 
-possess the rights to do so and furthermore all the utilities I used were completely untrusted, sourced from really random places of the 
-internet. For reference, I could find two versions online (below the sha256 of the binary):
-
-* `0eca4bd9152a7578b7fa867b0459da88a1d0726f74fe3d08f021ce5826ef09ef`: 7.34, 6/17/04
-* `3be18d9bad27f20209a729e42fee8d28e03aacf2bbe571deea81b83d98c36686`: 15.6.1, 10/16/12
-
-The reverse engineering exercise was based on `0eca4b`.
+`B57UDIAG.EXE` is an old tool which can still be sourced from Broadcom website. Most of my work was based on top of version `15.6.1, 10/16/12`, available as [doc 12358473](https://docs.broadcom.com/docs/12358473). 
+The sha256 of the EXE file itself is `3be18d9bad27f20209a729e42fee8d28e03aacf2bbe571deea81b83d98c36686`.
+Note that it did happen once that I had to restore NIC boot code through the tool running in engineering mode (`-b57eng` flag). The only version I could find that was capable of this type of recovery 
+was `7.34, 6/17/04` (sha256sum 0eca4bd9152a7578b7fa867b0459da88a1d0726f74fe3d08f021ce5826ef09ef). I could not find a copy of this binary distributed directly by Broadom.
 
 # Usage
-The tool supports two commands:
+`broadcom-optionrom` supports two commands:
 
 * `check`: performs NVRAM checks for UEFI OptionROM (e.g. directory checksum, OptionROM checksum, VPD checksum)
 * `write`: writes custom OptionROM on a binary dump of NIC NVRAM
@@ -60,9 +56,9 @@ implement routers, firewalls, etc, but it’s a great setup to run firmware expe
 
 ![APU2D4](https://github.com/marcoguerri/broadcom-optionrom/blob/master/img/apu2d.jpg)
 
-For OptionROM experiments, I build coreboot with UEFI pyload support (edk2-tianocore) through `UefiPayloadPkg/UefiPayloadPkg.dsc`. 
-Support for enumerating PCIe bus and dispatching execution to UEFI OptionROMs was patched on top of upstream. Back then, [Patrick Rudolph's
-patch had not been merged yet](https://github.com/tianocore/edk2/pull/2693), but I see it's now close, which is great news. Bus enumeration 
+For OptionROM experiments, I built coreboot with UEFI pyload support (edk2-tianocore) through `UefiPayloadPkg/UefiPayloadPkg.dsc`. 
+Support for enumerating PCIe bus and dispatching execution to UEFI OptionROMs was patched on top of upstream. When I run these experiments, [Patrick Rudolph's
+patch had not been approved yet](https://github.com/tianocore/edk2/pull/2693), but I see it's now merged, which is great news. Bus enumeration 
 would normally be coreboot responsibility, but nothing prevents UEFI from scanning the bus again, identifying UEFI OptionROMs and executing 
 them. 
 
@@ -81,7 +77,7 @@ ProtectUefiImageCommon - 0xCE842C40
 *** che la diritta via era smarrita
 ```
 
-We built a new OptionROM. From:
+We build a new OptionROM. From:
 ```
     DEBUG((DEBUG_INFO, "*** Nel mezzo del cammin di nostra vita\n"));
     DEBUG((DEBUG_INFO, "*** mi ritrovai per una selva oscura\n"));
