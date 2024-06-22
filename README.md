@@ -1,4 +1,4 @@
-`broadcom-optionrom` is a tool built based on the [reverse engineering](https://marcoguerri.github.io/reversing/msdos/2023/02/04/broadcom-pxe-write.html) 
+`broadcom-optionrom` is a tool built based on the [reverse engineering](https://marcoguerri.github.io/2023/02/04/broadcom-pxe-write.html) 
 of Boardcom MS-DOS utility `B57UDIAG.EXE`, specifically the control paths which manipulate OptionROM in NVRAM. It can be used to write
 custom UEFI OptionROM to NVRAM of Broadcom BCM5751 NICs. It will likely work also for other devices belonging the BCM575x family, but
 so far it has been tested only on a BCM5751-RJ45 PCIe x1 1G Single-port Desktop Adapter.
@@ -128,9 +128,9 @@ ProtectUefiImageCommon - 0xCE842C40
 
   
 # Limitations
-The tool has the following limitations, some of which are [further analyzed in the corresponding post](https://marcoguerri.github.io/reversing/msdos/2023/02/04/broadcom-pxe-write.html):
+The tool has the following limitations, some of which are [further analyzed in the corresponding post](https://marcoguerri.github.io/2023/02/04/broadcom-pxe-write.html):
 * It doesn't implement any type of NVRAM space look-up. It just searches for PXE entry in the directory and stores the new OptionROM starting
 from the same offset. It really doesn't care if in the process, anything else might be overwritten. This is obvioulsy super naive, and 
-implementing a proper [space look-up algorithm as described in the post](https://marcoguerri.github.io/reversing/msdos/2023/02/04/broadcom-pxe-write.html), would not be difficult. I have gotten around to implementing this yet.
+implementing a proper [space look-up algorithm as described in the post](https://marcoguerri.github.io/2023/02/04/broadcom-pxe-write.html), would not be difficult. I have gotten around to implementing this yet.
 * It doesn't rewrite VendorID nor DeviceID in the OptionROM header based on the device we are working on. These two fields must be populated
 correctly at OptionROM build time.
